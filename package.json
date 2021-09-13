@@ -1,0 +1,29 @@
+{
+  "name": "imba-base",
+  "version": "1.0.0",
+  "description": "A great starting point for a Meteor app with Imba front-end",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run start-*\"",
+    "reinit-git": "rm -Rf .git && git init",
+    "npm-packages": "npm i concurrently imba simpl-schema @babel/runtime meteor-node-stubs",
+    "meteor-packages": "meteor add accounts-password check dburles:collection-helpers aldeed:collection2-core email matb33:collection-hooks",
+    "setup": "npm run reinit-git && npm run npm-packages && npm run build && meteor create . && npm run meteor-packages",
+    "build": "imbac imba -o .",
+    "start-meteor": "meteor",
+    "start-imba": "imbac -w imba -o .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.15.4",
+    "concurrently": "^6.2.1",
+    "imba": "^2.0.0-alpha.170",
+    "meteor-node-stubs": "^1.1.0",
+    "simpl-schema": "^1.12.0"
+  }
+}
