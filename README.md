@@ -9,5 +9,6 @@ A useful starting point for a Meteor app with an Imba UI.
 ### Setup
 
 - Clone this repo `git clone git@github.com:milktop/meteor-imba-base.git my-app`
+- `cd my-app`
 - Run `npm run setup`
 - Run `npm start`
