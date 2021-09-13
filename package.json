@@ -12,7 +12,7 @@
     "remove-meteor": "rm -Rf .meteor",
     "npm-packages": "npm i concurrently imba simpl-schema @babel/runtime meteor-node-stubs",
     "meteor-packages": "meteor add accounts-password check dburles:collection-helpers aldeed:collection2-core email matb33:collection-hooks",
-    "setup": "npm run reinit-git && npm remove-meteor && npm run npm-packages && npm run build && meteor create . && npm run meteor-packages",
+    "setup": "npm run reinit-git && npm run remove-meteor && npm run npm-packages && npm run build && meteor create . && npm run meteor-packages",
     "build": "imbac imba -o .",
     "start-meteor": "meteor",
     "start-imba": "imbac -w imba -o .",
