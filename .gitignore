@@ -4,3 +4,5 @@ node_modules/
 settings-development.json
 *.DS_Store
 .npmrc
+imports/
+client/*.json
