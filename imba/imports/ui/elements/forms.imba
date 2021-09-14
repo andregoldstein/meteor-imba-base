@@ -45,7 +45,7 @@ tag text-area
 	<self [w:{width}]>
 		<textarea$el @input=handleInput placeholder=placeholder bind=value [w:{width}]>
 
-tag password-input < input
+tag password-input
 
 	prop visible = false
 	prop value = ""
