@@ -4,5 +4,5 @@ node_modules/
 settings-development.json
 *.DS_Store
 .npmrc
-imports/
+imports/*.js
 client/*.js
