@@ -4,7 +4,6 @@ global css
 	* ff:sans
 	
 	body m:0 p:0 c:gray8 ff:sans fs:md c:cooler8
-		$brand: #2abdac $brand-dark: #1DB09F $bg: #fcfafb
 	
 	# Buttons
 	button 

@@ -6,15 +6,24 @@ const auth = {
 	loading: false
 	error: null
 
+	name: ""
+	email: ""
+	password: ""
+
 	user: Meteor.user!
 
 	prepareRequest: do
 		auth.error = null
 		auth.loading = true
 	
+	resetFields: do
+		auth.name = ""
+		auth.email = ""
+		auth.email = ""
+	
 	actionCallback: do(err)
 		auth.loading = false
-		auth.error = err.reason if err
+		err ? auth.error = err.reason : auth.resetFields!
 		imba.commit!
 	
 	toggleMode: do
@@ -22,15 +31,16 @@ const auth = {
 		auth.error = null
 		imba.commit!
 		
-	login: do(email, password)
+	login: do
 		auth.prepareRequest!
-		Meteor.loginWithPassword email, password, do(err) auth.actionCallback (err)
+		Meteor.loginWithPassword auth.email, auth.password, do(err) auth.actionCallback (err)
 	
-	signup: do(email, password)
-		console.log email, password
+	signup: do
 		auth.prepareRequest!
-		Accounts.createUser { email, password }, do(err) auth.actionCallback (err)
-	
+		// We are using our custom method here as opposed to Accounts.createUser so we can add further information (name, role etc...)
+		Meteor.call "createAccount", { name: auth.name, email: auth.email, password: auth.password } do(err, id)
+			err ? auth.error = err.reason : auth.login!
+			
 	logout: do
 		Meteor.logout do
 			auth.signupMode = false

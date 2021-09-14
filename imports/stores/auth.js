@@ -9,6 +9,10 @@ const auth = {
 	loading: false,
 	error: null,
 	
+	name: "",
+	email: "",
+	password: "",
+	
 	user: Meteor.user(),
 	
 	prepareRequest: function() {
@@ -17,10 +21,17 @@ const auth = {
 		return auth.loading = true;
 	},
 	
+	resetFields: function() {
+		
+		auth.name = "";
+		auth.email = "";
+		return auth.email = "";
+	},
+	
 	actionCallback: function(err) {
 		
 		auth.loading = false;
-		if (err) { auth.error = err.reason };
+		err ? (auth.error = err.reason) : auth.resetFields();
 		return imba_commit();
 	},
 	
@@ -31,19 +42,22 @@ const auth = {
 		return imba_commit();
 		
 	},
-	login: function(email,password) {
+	login: function() {
 		
 		auth.prepareRequest();
-		return Meteor.loginWithPassword(email,password,function(err) { return auth.actionCallback((err)); });
+		return Meteor.loginWithPassword(auth.email,auth.password,function(err) { return auth.actionCallback((err)); });
 	},
 	
-	signup: function(email,password) {
+	signup: function() {
 		
-		console.log(email,password);
 		auth.prepareRequest();
-		return Accounts.createUser({email: email,password: password},function(err) { return auth.actionCallback((err)); });
+		// We are using our custom method here as opposed to Accounts.createUser so we can add further information (name, role etc...)
+		return Meteor.call("createAccount",{name: auth.name,email: auth.email,password: auth.password},function(err,id) {
+			
+			return err ? (auth.error = err.reason) : auth.login();
+			
+		});
 	},
-	
 	logout: function() {
 		
 		return Meteor.logout(function() {

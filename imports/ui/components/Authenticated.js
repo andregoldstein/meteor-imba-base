@@ -6,8 +6,12 @@ import {use_events as imba_use_events, styles as imba_styles, ImbaElement as imb
 /*body*/
 import {Meteor} from 'meteor/meteor'/*$path$*/;
 import auth from '../../stores/auth'/*$path$*/;
-
 export default class Authenticated extends imba_ImbaElement {
+	
+	
+	get user(){
+		return Meteor.user();
+	}
 	
 	render(){
 		var τself, ιself, Δself, φ = this._ns_ || '', τh1ι, τp, υp, τbutton;
@@ -16,7 +20,7 @@ export default class Authenticated extends imba_ImbaElement {
 		(ιself=Δself=1,τself[εself] === 1) || (ιself=Δself=0,τself[εself]=1);
 		ιself || (τh1ι=imba_createElement('h1',τself,`${φ}`,"Welcome back"));
 		(τp = τself[εp]) || (τself[εp]=τp=imba_createElement('p',τself,`${φ}`,null));
-		(imba_renderContext.context=(τself[ε$] || (τself[ε$]={_:τp})),υp=JSON.stringify(Meteor.user()),imba_renderContext.context=null,(υp===τself[ε]&&ιself) || (τself[εi] = τp[ΨplaceChild](τself[ε]=υp,384,τself[εi])));
+		(imba_renderContext.context=(τself[ε$] || (τself[ε$]={_:τp})),υp=JSON.stringify(this.user),imba_renderContext.context=null,(υp===τself[ε]&&ιself) || (τself[εi] = τp[ΨplaceChild](τself[ε]=υp,384,τself[εi])));
 		ιself || (τbutton=imba_createElement('button',τself,`${φ}`,"Logout"));
 		ιself || (τbutton.on$(`click`,{$_: [function(e,$$) {
 			return auth.logout(e);

@@ -12,10 +12,7 @@ font-family: var(--font-sans,system-ui, -apple-system, BlinkMacSystemFont, "Sego
 font-size: 16px;
 line-height: 24px;
 --u_lh: 24px;
-color: hsla(217.24,32.58%,17.45%,100%);
---brand: #2abdac;
---brand-dark: #1DB09F;
---bg: #fcfafb;}
+color: hsla(217.24,32.58%,17.45%,100%);}
 button {padding-left: 0.75rem;
 padding-right: 0.75rem;
 padding-top: 0.4rem;
