@@ -2,10 +2,10 @@ import { Meteor } from 'meteor/meteor'
 
 const auth = {
 	
-	signupMode: false
+	mode: "login"
 	loading: false
 	error: null
-
+	
 	name: ""
 	email: ""
 	password: ""
@@ -19,16 +19,15 @@ const auth = {
 	resetFields: do
 		auth.name = ""
 		auth.email = ""
-		auth.email = ""
+		auth.password = ""
 	
 	actionCallback: do(err)
 		auth.loading = false
 		err ? auth.error = err.reason : auth.resetFields!
 		imba.commit!
 	
-	toggleMode: do
-		auth.signupMode = !auth.signupMode
-		auth.error = null
+	setMode: do(value)
+		auth.mode = value
 		imba.commit!
 		
 	login: do
@@ -37,14 +36,17 @@ const auth = {
 	
 	signup: do
 		auth.prepareRequest!
-		// We are using our custom method here as opposed to Accounts.createUser so we can add further information (name, role etc...)
 		Meteor.call "createAccount", { name: auth.name, email: auth.email, password: auth.password } do(err, id)
 			err ? auth.error = err.reason : auth.login!
 			
 	logout: do
 		Meteor.logout do
-			auth.signupMode = false
+			auth.mode = "login"
+			auth.resetFields!
 			imba.commit!
+	
+	reset: do
+		console.log "Reset password"
 
 }
 

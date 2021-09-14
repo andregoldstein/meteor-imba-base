@@ -5,7 +5,7 @@ import {Meteor} from 'meteor/meteor'/*$path$*/;
 
 const auth = {
 	
-	signupMode: false,
+	mode: "login",
 	loading: false,
 	error: null,
 	
@@ -25,7 +25,7 @@ const auth = {
 		
 		auth.name = "";
 		auth.email = "";
-		return auth.email = "";
+		return auth.password = "";
 	},
 	
 	actionCallback: function(err) {
@@ -35,10 +35,9 @@ const auth = {
 		return imba_commit();
 	},
 	
-	toggleMode: function() {
+	setMode: function(value) {
 		
-		auth.signupMode = !auth.signupMode;
-		auth.error = null;
+		auth.mode = value;
 		return imba_commit();
 		
 	},
@@ -51,7 +50,6 @@ const auth = {
 	signup: function() {
 		
 		auth.prepareRequest();
-		// We are using our custom method here as opposed to Accounts.createUser so we can add further information (name, role etc...)
 		return Meteor.call("createAccount",{name: auth.name,email: auth.email,password: auth.password},function(err,id) {
 			
 			return err ? (auth.error = err.reason) : auth.login();
@@ -62,9 +60,15 @@ const auth = {
 		
 		return Meteor.logout(function() {
 			
-			auth.signupMode = false;
+			auth.mode = "login";
+			auth.resetFields();
 			return imba_commit();
 		});
+	},
+	
+	reset: function() {
+		
+		return console.log("Reset password");
 	}
 };
 

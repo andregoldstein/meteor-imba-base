@@ -44,3 +44,22 @@ tag text-area
 	
 	<self [w:{width}]>
 		<textarea$el @input=handleInput placeholder=placeholder bind=value [w:{width}]>
+
+tag password-input < input
+
+	prop visible = false
+	prop value = ""
+	prop newPassword = false
+
+	get buttonText do visible ? "Hide" : "Show"
+	
+	get autocomplete do newPassword ? "new-password" : "current-password"
+	
+	css pos:relative d:hflex ai:center
+	css div pos:absolute t:0 r:0.2rem fs:sm- h:100% d:flex ai:center
+	css button h:80%
+	
+	def render
+		<self>
+			<input bind=value type=(visible ? "text" : "password") autocomplete=autocomplete>
+			<div> <button type="button" @click=(visible = !visible)> buttonText
