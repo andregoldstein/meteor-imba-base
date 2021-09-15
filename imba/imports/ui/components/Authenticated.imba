@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor'
-import { Dashboard } from '../pages'
-import auth from '../../stores/auth'
+import { Dashboard } from '/imports/ui/pages'
+import auth from '/imports/stores/auth'
 
 export default tag Authenticated
 

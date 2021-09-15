@@ -1,4 +1,4 @@
-import { Auth, ResetPassword } from '../pages'
+import { Auth, ResetPassword } from '/imports/ui/pages'
 
 export default tag Visitor
 

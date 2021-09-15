@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-import auth from '../../stores/auth'
+import auth from '/imports/stores/auth'
 
 export default tag Auth
 	
