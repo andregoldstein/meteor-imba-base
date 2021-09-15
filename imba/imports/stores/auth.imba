@@ -1,16 +1,22 @@
 import { Meteor } from 'meteor/meteor'
+import { Tracker } from 'meteor/tracker'
 
 const auth = {
 	
 	mode: "login"
 	loading: false
 	error: null
+	success: null
 	
 	name: ""
 	email: ""
 	password: ""
 
-	user: Meteor.user!
+	get user
+		let user
+		Tracker.autorun do user = Meteor.user!
+		imba.commit!
+		return user
 
 	prepareRequest: do
 		auth.error = null
@@ -45,8 +51,25 @@ const auth = {
 			auth.resetFields!
 			imba.commit!
 	
-	reset: do
-		console.log "Reset password"
+	sendReset: do
+		auth.prepareRequest!
+		Accounts.forgotPassword { email: auth.email }, do(err)
+			auth.loading = false
+			if err
+				auth.error = err.reason
+			else
+				auth.success = "An email has been sent with password reset instructions"
+				auth.mode = "login"
+			imba.commit!
+
+	reset: do(token, password)
+		auth.prepareRequest!
+		Accounts.resetPassword token, password, do(err)
+			auth.loading = false
+			return auth.error = err.reason if err
+			globalThis.window.location.href = "/"
+			imba.commit!
+	
 
 }
 

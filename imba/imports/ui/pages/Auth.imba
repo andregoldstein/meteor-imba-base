@@ -19,7 +19,7 @@ export default tag Auth
 		focusInput!
 			
 	def handleSubmit
-		auth.mode === "signup" ? auth.signup! : auth.mode === "reset" ? auth.reset! : auth.login!
+		auth.mode === "signup" ? auth.signup! : auth.mode === "reset" ? auth.sendReset! : auth.login!
 	
 	def setMode mode
 		auth.setMode mode
@@ -53,6 +53,7 @@ export default tag Auth
 			
 			<h2> title
 
+			<app-message status="success" [mt:-2]> auth.success if auth.success
 			<app-message status="warning" [mt:-2]> auth.error if auth.error
 
 			<form$formEl @submit.prevent=handleSubmit>

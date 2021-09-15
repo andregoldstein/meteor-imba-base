@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor'
-import { Auth } from '../imports/ui/pages'
-import { Authenticated } from '../imports/ui/components'
+import { Authenticated, Visitor } from '../imports/ui/components'
+import auth from '../imports/stores/auth'
 
 import '../imports/ui/elements/forms'
 import '../imports/ui/elements/messages'
@@ -9,11 +9,11 @@ import '../imports/ui/styles'
 tag app
 
 	def render
-		
+
 		<self>
-			if Meteor.user!
+			if auth.user
 				<Authenticated>
 			else
-				<Auth allowSignup=true>
+				<Visitor>
 			
 imba.mount <app>
